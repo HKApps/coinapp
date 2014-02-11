@@ -9,6 +9,6 @@ class CoinbaseClient
   end
 
   def get_price
-    @coinbase.buy_price(1).to_f
+    coinbase.buy_price(1).to_f
   end
 end
