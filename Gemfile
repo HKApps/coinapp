@@ -18,8 +18,16 @@ gem 'figaro'
 
 # Process Management
 gem 'foreman'
+
+# Database
 gem 'pg'
+
+# Webserver
 gem 'unicorn'
+
+# Jobs and Scheduler
+gem 'clockwork'
+gem 'sidekiq'
 
 # External API libs
 gem 'coinbase'
