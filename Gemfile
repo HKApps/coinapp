@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 ruby '2.0.0'
 gem 'rails', '4.0.1'
+
+# Assets
 gem 'sass-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
@@ -8,13 +10,21 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'bootstrap-sass', '>= 3.0.0.0'
-gem 'figaro'
 gem 'haml-rails'
+gem 'angularjs-rails'
+
+# Config Management
+gem 'figaro'
+
+# Process Management
+gem 'foreman'
 gem 'pg'
-gem 'puma'
+gem 'unicorn'
+
+# External API libs
 gem 'coinbase'
 gem 'twilio-ruby'
-gem 'angularjs-rails'
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]
