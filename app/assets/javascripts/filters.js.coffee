@@ -1,0 +1,1 @@
+coinappFilters = angular.module('coinappFilters', [])
