@@ -8,8 +8,7 @@ class UpdatePriceWorker
     last_ph         = PriceHistory.last
     new_ph          = PriceHistory.create price: formatted_price
 
-    p formatted_price
-    #SendPriceNotificationWorker.perform_async(new_ph.price) if last_ph.price != new_ph.price
+    SendPriceNotificationWorker.perform_async(new_ph.price) if last_ph.price != new_ph.price
   end
 
   private
