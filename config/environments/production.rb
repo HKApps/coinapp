@@ -88,4 +88,17 @@ Coinapp::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  def raise_error(msg)
+    raise("Please set #{msg} as an env var.")
+  end
+
+  # Coinbase
+  config.coinbase_api_key    = ENV['COINBASE_API_KEY'] || raise_error('COINBASE_API_KEY')
+  config.coinbase_api_secret = ENV['COINBASE_API_SECRET'] || raise_error('COINBASE_API_SECRET')
+
+  # Twilio
+  config.twilio_account_sid = ENV['TWILIO_ACCOUNT_SID'] || raise_error('TWILIO_SID')
+  config.twilio_auth_token  = ENV['TWILIO_AUTH_TOKEN'] || raise_error('TWILIO_AUTH_TOKEN')
+  config.twilio_number      = ENV['TWILIO_NUMBER'] || raise_error('TWILIO_NUMBER')
 end
