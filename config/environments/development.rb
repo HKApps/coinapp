@@ -44,7 +44,7 @@ Coinapp::Application.configure do
   config.coinbase_api_secret = ENV['COINBASE_API_SECRET'] || 'f0012b96f172af7c42da890efcfa8b98d8dc32dbe31b9cac9b4c76f5f551864a'
 
   # Twilio
-  config.twilio_sid        = ENV['TWILIO_ACCOUNT_SID'] || 'ACdbacbf5f4d0c5341f6ef363a4509f05a'
-  config.twilio_auth_token = ENV['TWILIO_AUTH_TOKEN'] || '7512f2ef0284748fbbb6f61261777cad'
-  config.twilio_number     = ENV['TWILIO_NUMBER'] || '+19163419340'
+  config.twilio_account_sid = ENV['TWILIO_ACCOUNT_SID'] || 'ACdbacbf5f4d0c5341f6ef363a4509f05a'
+  config.twilio_auth_token  = ENV['TWILIO_AUTH_TOKEN'] || '7512f2ef0284748fbbb6f61261777cad'
+  config.twilio_number      = ENV['TWILIO_NUMBER'] || '+19163419340'
 end

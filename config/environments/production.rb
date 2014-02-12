@@ -98,7 +98,7 @@ Coinapp::Application.configure do
   config.coinbase_api_secret = ENV['COINBASE_API_SECRET'] || raise_error('COINBASE_API_SECRET')
 
   # Twilio
-  config.twilio_sid        = ENV['TWILIO_ACCOUNT_SID'] || raise_error('TWILIO_SID')
-  config.twilio_auth_token = ENV['TWILIO_AUTH_TOKEN'] || raise_error('TWILIO_AUTH_TOKEN')
-  config.twilio_number     = ENV['TWILIO_NUMBER'] || raise_error('TWILIO_NUMBER')
+  config.twilio_account_sid = ENV['TWILIO_ACCOUNT_SID'] || raise_error('TWILIO_SID')
+  config.twilio_auth_token  = ENV['TWILIO_AUTH_TOKEN'] || raise_error('TWILIO_AUTH_TOKEN')
+  config.twilio_number      = ENV['TWILIO_NUMBER'] || raise_error('TWILIO_NUMBER')
 end
