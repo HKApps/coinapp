@@ -1,34 +1,35 @@
 class SendPriceNotificationWorker
   include Sidekiq::Worker
+  sidekiq_options queue: :send_price_notification, retry: false
 
-  def perform(price)
-    # E.G - Alert me when the price goes above 650: price > 650
-    greater_schedules = Schedule.includes(:user).where(comparison: '>').where('? > price', price)
+  def perform(current_price)
+    current_price  = current_price.to_d
+    previous_price = PriceHistory.second_to_last.try(:price)
 
-    # E.G - Alert me when the price goes below 650: price < 650
-    lesser_schedules = Schedule.includes(:user).where(comparison: '<').where('? < price', price)
+    return unless previous_price
 
-    total_schedules = greater_schedules + lesser_schedules
+    schedules = current_price > previous_price ? Schedule.greater(current_price) : Schedule.lesser(current_price)
 
-    total_schedules.each do |schedule|
+    schedules.each do |schedule|
       comp_text = schedule.comparison == '>' ? 'above' : 'below'
-
-      twilio_account.sms.messages.create(
-        from: Rails.configuration.twilio_number,
-        to:   schedule.user.phone_number,
-        message: <<-eos
-        The BTC price is now #{price}.
+      message   = <<-eos
+        The BTC price is now $#{current_price}.
 
         You requested an sms when the price went #{comp_text} $#{schedule.price}.
 
         - CoinCoin Team
-        eos
+      eos
+
+      twilio_account.sms.messages.create(
+        from: Rails.configuration.twilio_number,
+        to:   schedule.user.phone_number,
+        body: message
       )
 
-      CreateCompletedActionsWorker.perform_async(schedule_id, price)
+      CreateCompletedActionsWorker.perform_async(schedule.id, current_price)
     end
 
-    total_schedules.update_all(enabled: false)
+    schedules.update_all(enabled: false)
   end
 
   private

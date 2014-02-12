@@ -6,5 +6,13 @@ class Schedule < ActiveRecord::Base
   validates_numericality_of :price, greater_than: 0
   validates_inclusion_of :comparison, in: [">", "<"]
 
-  default_scope { where(enabled: true) }
+  scope :enabled, -> { where(enabled: true) }
+
+  def self.greater(current_price)
+    includes(:user).enabled.where(comparison: '>').where('? > price', current_price)
+  end
+
+  def self.lesser(current_price)
+    includes(:user).enabled.where(comparison: '<').where('? < price', current_price)
+  end
 end
