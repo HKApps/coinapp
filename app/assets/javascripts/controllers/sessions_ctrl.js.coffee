@@ -1,7 +1,6 @@
-@coinapp.controller 'LoginCtrl', ['$scope', 'Login', 'User'
-  ($scope, Login, User) ->
+@coinapp.controller 'SessionsCtrl', ['$scope', 'Session', 'User'
+  ($scope, Session, User) ->
     $scope.login = (phoneNumber, password) ->
-      Login.signIn(phoneNumber, password)
 
     $scope.register = (phoneNumber, password) ->
       user = new User()
