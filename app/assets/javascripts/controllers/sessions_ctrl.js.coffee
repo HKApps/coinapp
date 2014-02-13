@@ -1,6 +1,20 @@
 @coinapp.controller 'SessionsCtrl', ['$scope', 'Session', 'User'
   ($scope, Session, User) ->
+    $scope.currentUser = undefined
+
     $scope.login = (phoneNumber, password) ->
+      session = new Session()
+      session.phone_number = phoneNumber
+      session.password = password
+      session.create().then (res) =>
+        return unless res.status == 201
+        $scope.currentUser = res.data
+
+    $scope.logout = ->
+      Session.destroy().then (res) =>
+        debugger
+
+      $scope.currentUser = undefined
 
     $scope.register = (phoneNumber, password) ->
       user = new User()
@@ -9,7 +23,8 @@
       # TODO add confirmation?
       user.password_confirmation = password
       user.create().then (res) =>
-        #redirect to user page
+        return unless res.status == 201
+        $scope.currentUser = res.data
 
     $scope.validPhoneNumber = (phoneNumber) ->
       # TODO better regex

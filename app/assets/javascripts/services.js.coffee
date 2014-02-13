@@ -1,14 +1,17 @@
 coinappServices = angular.module('coinappServices', [])
 
-coinappServices.factory 'Login', ['$http', ($http) ->
-  Login = (data) ->
+coinappServices.factory 'Session', ['$http', ($http) ->
+  Session = (data) ->
     angular.extend(this, data)
 
-  Login.signIn = (phoneNumber, password) ->
+  Session.destroy = ->
+    $http.post "/logout.json"
 
-  Login.signUp = (phoneNumber, password) ->
+  Session.prototype.create = ->
+    $http.post "/login.json",
+      user_session: this
 
-  Login
+  Session
 ]
 
 coinappServices.factory 'User', ['$http', ($http) ->

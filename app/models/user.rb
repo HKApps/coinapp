@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
-  acts_as_authentic
+  acts_as_authentic do |c|
+    c.login_field = :phone_number
+  end
 
   has_many :schedules
 
