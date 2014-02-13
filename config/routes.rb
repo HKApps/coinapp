@@ -9,5 +9,5 @@ Coinapp::Application.routes.draw do
     resources :user_sessions
     resources :users
 
-    root to: 'dashboards#index_template'
+    root to: 'home#index_template'
 end
