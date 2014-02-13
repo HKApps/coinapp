@@ -11,9 +11,7 @@
         $scope.currentUser = res.data
 
     $scope.logout = ->
-      Session.destroy().then (res) =>
-        debugger
-
+      Session.destroy()
       $scope.currentUser = undefined
 
     $scope.register = (phoneNumber, password) ->

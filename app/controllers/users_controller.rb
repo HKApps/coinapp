@@ -6,7 +6,7 @@ class UsersController < ApplicationController
     if @user.save
       respond_with @user
     else
-      respond_with @user.errors, status: :unauthorized
+      respond_with @user, status: :unprocessable_entity
     end
   end
 

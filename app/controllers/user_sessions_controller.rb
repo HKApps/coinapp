@@ -6,14 +6,13 @@ class UserSessionsController < ApplicationController
     if @user_session.save
       respond_with current_user
     else
-      respond_with @user_session.errors
+      respond_with @user_session, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @user_session = UserSession.where(id: params[:id]).first
-    @user_session.destroy
-    respond_with @user_session
+    current_user_session.destroy
+    render json: current_user
   end
 
   def user_session_params
