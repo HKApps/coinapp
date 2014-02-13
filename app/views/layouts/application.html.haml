@@ -12,9 +12,11 @@
     .container
       = render 'layouts/header'
 
-      .logged-out{ ng_if: "!auth.loggedIn" }
-        = render 'layouts/logged_out'
-      .logged-in{ ng_if: "auth.loggedIn && currentUser.phone_number" }
-        = yield
+      -if !current_user
+        .logged-out{ ng_if: "!auth.loggedIn" }
+          = render 'layouts/logged_out'
+      - if current_user
+        .logged-in{ ng_if: "auth.loggedIn && currentUser.phone_number" }
+          = yield
 
       = render 'layouts/footer'

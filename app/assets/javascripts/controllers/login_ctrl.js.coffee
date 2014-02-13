@@ -1,10 +1,16 @@
-@coinapp.controller 'LoginCtrl', ['$scope', 'Login',
-  ($scope, Login) ->
-    $scope.signIn = (phoneNumber, password) ->
+@coinapp.controller 'LoginCtrl', ['$scope', 'Login', 'User'
+  ($scope, Login, User) ->
+    $scope.login = (phoneNumber, password) ->
       Login.signIn(phoneNumber, password)
 
-    $scope.signUp = (phoneNumber, password) ->
-      Login.signUp(phoneNumber, password)
+    $scope.register = (phoneNumber, password) ->
+      user = new User()
+      user.phone_number = phoneNumber
+      user.password = password
+      # TODO add confirmation?
+      user.password_confirmation = password
+      user.create().then (res) =>
+        #redirect to user page
 
     $scope.validPhoneNumber = (phoneNumber) ->
       # TODO better regex

@@ -15,5 +15,9 @@ coinappServices.factory 'User', ['$http', ($http) ->
   User = (data) ->
     angular.extend(this, data)
 
+  User.prototype.create = ->
+    $http.post "/users.json",
+      user: this
+
   User
 ]
