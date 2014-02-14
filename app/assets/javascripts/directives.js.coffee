@@ -1,7 +1,7 @@
 coinappDirectives = angular.module('coinappDirectives', [])
 
 # coinappDirectives.directive 'phone', ->
-#   restrice: "A"
+#   restrict: "A"
 #   require: "ngModel"
 #   link: (scope, element, attrs, ctrl) ->
 #     angular.element(element).bind "blur", ->
