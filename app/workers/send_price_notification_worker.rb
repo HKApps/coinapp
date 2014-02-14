@@ -35,11 +35,11 @@ class SendPriceNotificationWorker
   private
 
   def twilio_account
-    @twilio_account ||= Twilio::REST::Client.new(twilio_sid, twilio_auth_token).account
+    @twilio_account ||= Twilio::REST::Client.new(twilio_account_sid, twilio_auth_token).account
   end
 
-  def twilio_sid
-    Rails.configuration.twilio_sid
+  def twilio_account_sid
+    Rails.configuration.twilio_account_sid
   end
 
   def twilio_auth_token
