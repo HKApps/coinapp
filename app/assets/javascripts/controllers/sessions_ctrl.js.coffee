@@ -1,6 +1,12 @@
 @coinapp.controller 'SessionsCtrl', ['$scope', 'Session', 'User'
   ($scope, Session, User) ->
-    $scope.currentUser = undefined
+    if Session.getCookie("user_id")
+      User.get(Session.getCookie("user_id")).then (res) =>
+        $scope.currentUser = res.data
+        $scope.activateMain = true
+    else
+      $scope.currentUser = undefined
+      $scope.activateMain = true
 
     $scope.login = (phoneNumber, password) ->
       session = new Session()
@@ -30,5 +36,5 @@
       if phone_regexp.test(phoneNumber) then true else false
 
     $scope.validPassword = (password) ->
-      if password.length > 7 then true else false
+      if password && password.length > 7 then true else false
 ]

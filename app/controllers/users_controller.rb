@@ -1,6 +1,12 @@
 class UsersController < ApplicationController
   respond_to :json
 
+  def show
+    @user = User.where(id: params[:id]).first
+
+    respond_with @user
+  end
+
   def create
     @user = User.new(user_params)
     if @user.save
