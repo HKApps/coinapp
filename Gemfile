@@ -32,6 +32,10 @@ gem 'authlogic'
 gem 'clockwork'
 gem 'sidekiq'
 
+# View Presentation
+gem 'rabl'
+gem 'oj'
+
 # External API libs
 gem 'coinbase'
 gem 'twilio-ruby'
