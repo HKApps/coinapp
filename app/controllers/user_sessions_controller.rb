@@ -4,7 +4,8 @@ class UserSessionsController < ApplicationController
   def create
     @user_session = UserSession.new(user_session_params)
     if @user_session.save
-      respond_with current_user
+      @user = current_user
+      respond_with @user
     else
       respond_with @user_session, status: :unprocessable_entity
     end

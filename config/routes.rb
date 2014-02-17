@@ -1,5 +1,4 @@
 Coinapp::Application.routes.draw do
-
     match 'login', to: 'user_sessions#create', :via => [:get, :post]
     match 'logout', to: 'user_sessions#destroy', :via => [:get, :post]
 

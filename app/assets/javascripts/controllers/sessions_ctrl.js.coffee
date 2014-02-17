@@ -13,7 +13,7 @@
       session.phone_number = phoneNumber
       session.password = password
       session.create().then (res) =>
-        return unless res.status == 201
+        return unless res.status == 200
         $scope.currentUser = res.data
 
     $scope.logout = ->
@@ -27,7 +27,7 @@
       # TODO add confirmation?
       user.password_confirmation = password
       user.create().then (res) =>
-        return unless res.status == 201
+        return unless res.status == 200
         $scope.currentUser = res.data
 
     $scope.validPhoneNumber = (phoneNumber) ->
