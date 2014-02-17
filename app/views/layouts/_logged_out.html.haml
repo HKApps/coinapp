@@ -1,0 +1,17 @@
+%form.form-horizontal
+  .form-group
+    .col-sm-10
+      %input.form-control{ type: "text",
+        ng_model: "phoneNumber",
+        data_phone: "",
+        placeholder: "phone number" }
+  .form-group
+    .col-sm-10
+      %input.form-control{ type: "password", ng_model: "password", placeholder: "password" }
+  %button.sign-in.btn.btn-primary{ ng_click: "login(phoneNumber, password)",
+    ng_disabled: "!validPhoneNumber(phoneNumber) || !validPassword(password)" }
+    Sign-In
+  %button.sign-in.btn.btn-primary{ ng_click: "register(phoneNumber, password)",
+    ng_disabled: "!validPhoneNumber(phoneNumber) || !validPassword(password)" }
+    Sign-Up
+

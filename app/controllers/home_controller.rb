@@ -1,4 +1,4 @@
-class DashboardsController < ApplicationController
+class HomeController < ApplicationController
   def index_template
     respond_to do |format|
       format.html do

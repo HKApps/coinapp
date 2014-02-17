@@ -7,9 +7,15 @@
     = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags
-  %body
-    %header
-      = render 'layouts/navigation'
-    %main{:role => "main"}
-      = render 'layouts/messages'
-      = yield
+
+  %body.ng-cloak{ ng_controller: "SessionsCtrl" }
+    .container
+      = render 'layouts/header'
+
+      .main{ ng_show: "activateMain" }
+        .logged-out{ ng_if: "!currentUser.phone_number" }
+          = render 'layouts/logged_out'
+        .logged-in{ ng_controller: "UserCtrl", ng_if: "currentUser.phone_number" }
+          = yield
+
+      = render 'layouts/footer'
