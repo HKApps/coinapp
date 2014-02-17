@@ -12,7 +12,7 @@ class UserSessionsController < ApplicationController
 
   def destroy
     current_user_session.destroy
-    render json: current_user
+    head :ok
   end
 
   def user_session_params
