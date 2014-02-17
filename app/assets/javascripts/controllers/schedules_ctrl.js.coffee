@@ -16,6 +16,6 @@
       schedule.enabled = true
 
     $scope.disableSchedule = (schedule) ->
-      Schedule.enable(schedule.id)
+      Schedule.disable(schedule.id)
       schedule.enabled = false
 ]
