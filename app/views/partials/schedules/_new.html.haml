@@ -1,0 +1,16 @@
+.schedules-new
+  %h3 new alerts
+  %form.form-inline
+    .form-group
+      %span Alert me if BTC goes
+    .form-group
+      %select.form-control{ ng_model: "comparison",
+        ng_options: "c for c in comparisons"}
+    .form-group
+      %input.form-control{ type: "number",
+        step: "any",
+        min: "0",
+        placeholder: "i.e. 600.32",
+        ng_model: "price" }
+    %button.submit-schedule.btn.btn-success{ ng_click: "createSchedule(comparison, price)" }
+      Create Alert

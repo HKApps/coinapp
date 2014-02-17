@@ -31,9 +31,9 @@ class SchedulesController < ApplicationController
     @schedule = Schedule.where(id: params[:id]).first
     @schedule.enabled = false
     if @schedule.save
-      respond_with status: 201
+      respond_with @schedule, status: 201
     else
-      respond_with status: 404
+      respond_with @schedule.errors, status: 404
     end
   end
 
@@ -41,9 +41,9 @@ class SchedulesController < ApplicationController
     @schedule = Schedule.where(id: params[:id]).first
     @schedule.enabled = true
     if @schedule.save
-      respond_with status: 201
+      respond_with @schedule, status: 201
     else
-      respond_with status: 404
+      respond_with @schedule.errors, status: 404
     end
   end
 
