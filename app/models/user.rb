@@ -11,4 +11,11 @@ class User < ActiveRecord::Base
   # TODO add phone_number validation
   # def valid_phone_number
   # end
+
+  def as_json(opts={})
+    super ({
+      only: :phone_number,
+      include: :schedules
+    }).merge(opts)
+  end
 end
