@@ -7,15 +7,15 @@
     = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags
+    %link{href: "http://fonts.googleapis.com/css?family=Lato:300,400,900", rel: "stylesheet", type: "text/css"}/
 
   %body.ng-cloak{ ng_controller: "SessionsCtrl" }
-    .container
-      = render 'layouts/header'
+    = render 'layouts/header'
 
-      .main{ ng_show: "activateMain" }
-        .logged-out{ ng_if: "!currentUser.id" }
-          = render 'layouts/logged_out'
-        .logged-in{ ng_controller: "UserCtrl", ng_if: "currentUser.id" }
-          = yield
+    .main.container{ ng_show: "activateMain" }
+      .logged-out{ ng_if: "!currentUser.id" }
+        = render 'layouts/logged_out'
+      .logged-in{ ng_controller: "UserCtrl", ng_if: "currentUser.id" }
+        = yield
 
-      = render 'layouts/footer'
+    = render 'layouts/footer'

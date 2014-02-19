@@ -1,0 +1,30 @@
+.navbar {
+  background-color: #348EDA;
+  color: #fff;
+  overflow: visible;
+  margin-bottom: 0;
+
+  .navbar-static-top{
+    position: static;
+    margin: 0;
+  }
+
+  .navbar-inner {
+    border: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    height: 70px;
+  }
+
+  .navbar-brand {
+    font-size: 20px;
+    font-weight: bolder;
+  }
+
+  .nav > li > a, .nav > li > a:hover {
+    color: #fff;
+    cursor:pointer;
+    background-color: #348EDA;
+    text-decoration: none;
+  }
+}
