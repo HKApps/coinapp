@@ -10,7 +10,7 @@ coinappServices.factory 'Session', ['$http', ($http) ->
 
   Session.prototype.create = ->
     $http.post("/login.json", user_session: this).then (res) =>
-      return unless res.status == 200
+      return unless res.status == 201
       Session.setCookie("user_id", res.data.id, 1)
       res
 

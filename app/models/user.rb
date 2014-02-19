@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
 
   def as_json(opts={})
     super ({
-      only: :phone_number,
+      only: :id,
       include: :schedules
     }).merge(opts)
   end
