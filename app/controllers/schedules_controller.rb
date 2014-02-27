@@ -7,19 +7,12 @@ class SchedulesController < ApplicationController
   end
 
   def create
-    @schedule = Schedule.where(schedule_params).first_or_initialize
-    @schedule.enabled = true
-    @schedule.deleted_at = nil
-
-    if @schedule.save
-      respond_with @schedule, status: 201
-    else
-      respond_with @schedule.errors, status: 401
-    end
+    @schedule = Schedule.create(schedule_params)
+    respond_with @schedule
   end
 
   def destroy
-    @schedule = Schedule.where(id: params[:id]).first
+    @schedule = Schedule.find_by id: params[:id]
     if @schedule.destroy
       respond_with status: 201
     else
@@ -33,17 +26,17 @@ class SchedulesController < ApplicationController
     if @schedule.save
       respond_with @schedule, status: 201
     else
-      respond_with @schedule.errors, status: 404
+      respond_with @schedule, status: 404
     end
   end
 
   def enable
-    @schedule = Schedule.where(id: params[:id]).first
+    @schedule = Schedule.find_by id: params[:id]
     @schedule.enabled = true
     if @schedule.save
       respond_with @schedule, status: 201
     else
-      respond_with @schedule.errors, status: 404
+      respond_with @schedule, status: 404
     end
   end
 
