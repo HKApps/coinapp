@@ -52,3 +52,26 @@ coinappServices.factory 'User', ['$http', ($http) ->
 
   User
 ]
+
+coinappServices.factory 'Schedule', ['$http', ($http) ->
+  Schedule = (data) ->
+    angular.extend(this, data)
+
+  Schedule.getIndex = ->
+    $http.get "/schedules.json"
+
+  Schedule.prototype.create = ->
+    $http.post "/schedules.json",
+      schedule: this
+
+  Schedule.destroy = (id) ->
+    $http.delete "/schedules/#{id}.json"
+
+  Schedule.disable = (id) ->
+    $http.post "/schedules/#{id}/disable.json"
+
+  Schedule.enable = (id) ->
+    $http.post "/schedules/#{id}/enable.json"
+
+  Schedule
+]

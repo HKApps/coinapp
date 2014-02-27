@@ -25,7 +25,7 @@
 
       $routeProvider
         .when '/',
-          templateUrl: '/partials/home.html'
+          templateUrl: '/partials/schedules/index.html'
         .otherwise
           redirectTo: '/'
   ])

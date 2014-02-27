@@ -14,8 +14,20 @@ class User < ActiveRecord::Base
 
   def as_json(opts={})
     super ({
-      only: :phone_number,
+      only: :id,
       include: :schedules
     }).merge(opts)
+  end
+
+  def active_schedules
+    self.schedules.select { |s| !s.deleted_at }
+  end
+
+  def enabled_schedules
+    self.schedules.select { |s| !s.deleted_at && s.enabled == true }
+  end
+
+  def disabled_schedules
+    self.schedules.select { |s| !s.deleted_at && s.enabled == false }
   end
 end

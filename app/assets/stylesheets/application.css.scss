@@ -8,6 +8,19 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require_self
  *= require_tree .
+ *= require_self
  */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  position: relative;
+}
+
+body {
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+}
