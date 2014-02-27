@@ -9,6 +9,8 @@
       schedule.price = price
       schedule.create().then (res) =>
         return unless res.status == 201
+        $scope.new_schedule.$setPristine()
+        $scope.resetForm()
         $scope.currentUser.schedules.push res.data
 
     $scope.enableSchedule = (schedule) ->
@@ -18,4 +20,9 @@
     $scope.disableSchedule = (schedule) ->
       Schedule.disable(schedule.id)
       schedule.enabled = false
+
+    $scope.resetForm = ->
+      $scope.comparison = undefined
+      $scope.price = undefined
+
 ]

@@ -1,9 +1,9 @@
 .schedules-index
-  %h3 your alerts
+  %h3 Your Alerts
   .schedule{ ng_repeat: "schedule in currentUser.schedules" }
     %span.type.glyphicon.glyphicon-bell
     %span
-      if BTC goes
+      If BTC goes
     %span.comparison
       {{ schedule.comparison == ">" ? "above" : "below" }}
     %span.price
