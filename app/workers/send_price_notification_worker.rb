@@ -22,7 +22,7 @@ class SendPriceNotificationWorker
 
       twilio_account.sms.messages.create(
         from: Rails.configuration.twilio_number,
-        to:   schedule.user.phone_number,
+        to:   "+#{ schedule.user.phone_number }",
         body: message
       )
 
