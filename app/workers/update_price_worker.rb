@@ -18,16 +18,16 @@ class UpdatePriceWorker
     SendPriceNotificationWorker.perform_async(current_price.price)
   end
 
-  def formatted_price
-    coinbase.spot_price.fractional / 100
-  end
-
   def previous_price
     PriceHistory.last
   end
 
+  def formatted_price
+    coinbase.spot_price.fractional / 100
+  end
+
   def current_price
-    @new_ph ||= PriceHistory.create! price: formatted_price
+    @new_ph ||= PriceHistory.create! price: formatted_price.to_f.to_d
   end
 
   def coinbase

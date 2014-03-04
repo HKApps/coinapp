@@ -1,9 +1,10 @@
 class SendPriceNotificationWorker
   include Sidekiq::Worker
+  include ActionView::Helpers
   sidekiq_options queue: :send_price_notification, retry: false
 
   def perform(current_price)
-    current_price  = current_price.to_d
+    current_price  = current_price.to_f.to_d
     previous_price = PriceHistory.second_to_last.try(:price)
 
     return unless previous_price
@@ -13,9 +14,9 @@ class SendPriceNotificationWorker
     schedules.each do |schedule|
       comp_text = schedule.comparison == '>' ? 'above' : 'below'
       message   = <<-eos
-        The BTC price is now $#{current_price}.
+        The BTC price is now #{number_to_currency current_price}.
 
-        You requested an sms when the price went #{comp_text} $#{schedule.price}.
+        You requested an sms when the price went #{comp_text} #{number_to_currency schedule.price}.
 
         - CoinCoin Team
       eos
