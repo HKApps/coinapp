@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   acts_as_authentic do |c|
     c.login_field = :phone_number
+    c.change_single_access_token_with_password = true
   end
 
   has_many :schedules
@@ -14,7 +15,7 @@ class User < ActiveRecord::Base
 
   def as_json(opts={})
     super ({
-      only: :id,
+      only: :single_access_token,
       include: :schedules
     }).merge(opts)
   end
