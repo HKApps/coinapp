@@ -1,10 +1,10 @@
-class UsersController < ApplicationController
+class Api::V1::UsersController < ApiController
   respond_to :json
 
   def show
     @user = User.where(id: params[:id]).first
 
-    respond_with @user.as_json
+    respond_with @user
   end
 
   def create

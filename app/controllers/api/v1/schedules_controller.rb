@@ -1,4 +1,4 @@
-class SchedulesController < ApplicationController
+class Api::V1::SchedulesController < ApiController
   respond_to :json
 
   def index
