@@ -32,8 +32,12 @@
 
     $scope.validPhoneNumber = (phoneNumber) ->
       # TODO better regex
-      phone_regexp = /^[(]{0,1}[0-9]{3}[)\.\- ]{0,1}[0-9]{3}[\.\- ]{0,1}[0-9]{4}$/
-      if phone_regexp.test(phoneNumber) then true else false
+      # Rules
+      # * Area code can be preceded by parens
+      # * Country code is optional
+      # * '.', '-', and ' ' characters can logically separate parts of the phone number sequence
+      phoneRegexp = /^[0-9]{0,2}[(]{0,1}[0-9]{3}[)\.\- ]{0,1}[0-9]{3}[\.\- ]{0,1}[0-9]{4}$/
+      if phoneRegexp.test(phoneNumber) then true else false
 
     $scope.validPassword = (password) ->
       if password && password.length > 7 then true else false
