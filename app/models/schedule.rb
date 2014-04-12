@@ -6,6 +6,7 @@ class Schedule < ActiveRecord::Base
   validates_presence_of :price, :user_id, :comparison
   validates_numericality_of :price, greater_than: 0
   validates_inclusion_of :comparison, in: [">", "<"]
+  validates_inclusion_of :type, in: ["notification", "buy", "sell"]
 
   scope :enabled, -> { where(enabled: true) }
 
