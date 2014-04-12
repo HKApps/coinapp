@@ -34,7 +34,7 @@ gem 'clockwork'
 gem 'sidekiq'
 
 # External API libs
-gem 'coinbase'
+gem 'coinbase', '>=1.3.2'
 gem 'twilio-ruby'
 
 # Monitoring
