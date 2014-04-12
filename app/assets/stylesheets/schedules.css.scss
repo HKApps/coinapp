@@ -1,0 +1,13 @@
+.schedule {
+  .symbol {
+    min-width: 40px;
+    .glyphicon {
+      font-weight: bold;
+    }
+  }
+  .schedule-type {
+    min-width: 200px;
+  }
+  .enable, .disable {
+    margin-left: 15px; }
+}

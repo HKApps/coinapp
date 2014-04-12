@@ -2,12 +2,12 @@
   %h3 New Alerts
   %form.form-inline{ name: "new_schedule" }
     .form-group
-      %select.form-control{ ng_model: "scheduleType",
+      %select.form-control.input-sm{ ng_model: "scheduleType",
         ng_options: "t for t in scheduleTypes",
         require: true }
       %span if BTC goes
     .form-group
-      %select.form-control{ ng_model: "comparison",
+      %select.form-control.input-sm{ ng_model: "comparison",
         ng_options: "c for c in comparisons",
         required: true }
     .form-group
