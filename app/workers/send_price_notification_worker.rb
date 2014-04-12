@@ -21,9 +21,9 @@ class SendPriceNotificationWorker
         - CoinCoin Team
       eos
 
-      twilio_account.sms.messages.create(
+      twilio_account.messages.create(
         from: Rails.configuration.twilio_number,
-        to:   "+#{ schedule.user.phone_number }",
+        to:   "+1#{ schedule.user.phone_number }",
         body: message
       )
 
