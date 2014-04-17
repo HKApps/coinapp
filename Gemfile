@@ -28,6 +28,7 @@ gem 'unicorn'
 
 # Authentication
 gem 'authlogic'
+gem 'oauth2'
 
 # Jobs and Scheduler
 gem 'clockwork'

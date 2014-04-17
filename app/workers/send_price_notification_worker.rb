@@ -1,3 +1,5 @@
+load 'lib/coinbase_spot_price.rb'
+
 class SendPriceNotificationWorker
   include Sidekiq::Worker
   include ActionView::Helpers
@@ -10,8 +12,11 @@ class SendPriceNotificationWorker
     return unless previous_price
 
     schedules = current_price > previous_price ? Schedule.greater(current_price) : Schedule.lesser(current_price)
+    s_notification = schedules.where(schedule_type: "notify")
+    s_buy = schedules.where(schedule_type: "buy")
+    s_sell = schedules.where(schedule_type: "sell")
 
-    schedules.each do |schedule|
+    s_notification.each do |schedule|
       comp_text = schedule.comparison == '>' ? 'above' : 'below'
       message   = <<-eos
         The BTC price is now #{number_to_currency current_price}.
@@ -33,6 +38,16 @@ class SendPriceNotificationWorker
     schedules.update_all(enabled: false)
   end
 
+  # TODO update for authed user
+  s_buy.each do |schedule|
+    coinbase.buy(1) if coinbase.spot_price < schedule.price
+  end
+
+  # TODO update for authed user
+  s_sell.each do |schedule|
+    coinbase.sell(1) if coinbase.spot_price > schedule.price
+  end
+
   private
 
   def twilio_account
@@ -45,5 +60,17 @@ class SendPriceNotificationWorker
 
   def twilio_auth_token
     Rails.configuration.twilio_auth_token
+  end
+
+  def coinbase
+    @coinbase ||= Coinbase::Client.new(api_key, api_secret)
+  end
+
+  def api_key
+    Rails.configuration.coinbase_api_key
+  end
+
+  def api_secret
+    Rails.configuration.coinbase_api_secret
   end
 end

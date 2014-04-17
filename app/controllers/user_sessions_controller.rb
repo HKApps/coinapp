@@ -2,6 +2,7 @@ class UserSessionsController < ApplicationController
   respond_to :json
 
   def create
+    binding.pry
     @user_session = UserSession.new(user_session_params)
     if @user_session.save
       respond_with current_user, location: nil

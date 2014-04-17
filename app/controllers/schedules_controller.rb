@@ -8,7 +8,11 @@ class SchedulesController < ApplicationController
 
   def create
     @schedule = Schedule.create(schedule_params)
-    respond_with @schedule
+    if @schedule.save
+      respond_with @schedule, status: 201
+    else
+      respond_with @schedule, status: 404
+    end
   end
 
   def destroy

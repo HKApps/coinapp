@@ -11,7 +11,7 @@
         {{ schedule.comparison == ">" ? "above" : "below" }}
         {{ "$" + schedule.price }}
       %td.enabled
-        %button.btn.btn-xs.disabled{ ng_hide: "schedule.enabled", ng_click: "enableSchedule(schedule)" }
+        %button.btn.btn-xs.enable{ ng_hide: "schedule.enabled", ng_click: "enableSchedule(schedule)" }
           disabled
-        %button.btn.btn-xs.btn-primary.enabled{ ng_show: "schedule.enabled", ng_click: "disableSchedule(schedule)" }
+        %button.btn.btn-xs.btn-primary.disable{ ng_show: "schedule.enabled", ng_click: "disableSchedule(schedule)" }
           enabled
