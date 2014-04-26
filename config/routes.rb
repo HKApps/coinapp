@@ -8,7 +8,9 @@ Coinapp::Application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :users, only: [:show, :create]
+      resources :users, only: [:create]
+      match 'current_user', to: 'users#current_user', via: [:get]
+
       resources :schedules, only: [:index, :create, :destroy] do
         member do
           post 'disable', to: 'schedules#disable'

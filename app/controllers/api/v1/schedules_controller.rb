@@ -1,22 +1,24 @@
 class Api::V1::SchedulesController < ApiController
+  before_filter :verify_api_session
+
   respond_to :json
 
   def index
-    @schedules = current_user.schedules
+    @schedules = api_user.schedules
     respond_with @schedules
   end
 
   def create
-    @schedule = Schedule.create(schedule_params)
-    respond_with @schedule
+    @schedule = api_user.schedules.create(schedule_params)
+    respond_with @schedule, location: api_v1_schedules_url(@schedule)
   end
 
   def destroy
     @schedule = Schedule.find_by id: params[:id]
     if @schedule.destroy
-      respond_with status: 201
+      respond_with status: 201, location: api_v1_schedule_url(@schedule)
     else
-      respond_with status: 404
+      respond_with status: 404, location: api_v1_schedule_url(@schedule)
     end
   end
 
@@ -24,9 +26,9 @@ class Api::V1::SchedulesController < ApiController
     @schedule = Schedule.where(id: params[:id]).first
     @schedule.enabled = false
     if @schedule.save
-      respond_with @schedule, status: 201
+      respond_with @schedule, status: 201, location: disable_api_v1_schedule_url(@schedule)
     else
-      respond_with @schedule, status: 404
+      respond_with @schedule, status: 404, location: disable_api_v1_schedule_url(@schedule)
     end
   end
 
@@ -34,9 +36,9 @@ class Api::V1::SchedulesController < ApiController
     @schedule = Schedule.find_by id: params[:id]
     @schedule.enabled = true
     if @schedule.save
-      respond_with @schedule, status: 201
+      respond_with @schedule, status: 201, location: enable_api_v1_schedule_url(@schedule)
     else
-      respond_with @schedule, status: 404
+      respond_with @schedule, status: 404, location: enable_api_v1_schedule_url(@schedule)
     end
   end
 

@@ -1,10 +1,10 @@
 class Api::V1::UsersController < ApiController
   respond_to :json
 
-  def show
-    @user = User.where(id: params[:id]).first
+  before_filter :verify_api_session, only: [:current_user]
 
-    respond_with @user
+  def current_user
+    respond_with api_user
   end
 
   def create

@@ -11,6 +11,7 @@ class UserSessionsController < ApplicationController
   end
 
   def destroy
+    current_user.reset_single_access_token!
     current_user_session.destroy
     head :ok
   end
