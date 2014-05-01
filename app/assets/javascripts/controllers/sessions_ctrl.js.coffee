@@ -1,9 +1,9 @@
 @coinapp.controller 'SessionsCtrl', ['$scope', 'Session', 'User'
   ($scope, Session, User) ->
-    $scope.apiKey = Session.getCookie("api_key")
+    apiKey = Session.getCookie("api_key")
 
-    if $scope.apiKey
-      User.current($scope.apiKey).then (res) =>
+    if apiKey
+      User.current(apiKey).then (res) =>
         $scope.currentUser = res.data
         $scope.activateMain = true
     else
