@@ -8,12 +8,9 @@ class Api::V1::UsersController < ApiController
   end
 
   def create
-    @user = User.new(user_params)
-    if @user.save
-      respond_with @user, location: nil
-    else
-      respond_with @user, status: :unprocessable_entity
-    end
+    user = User.new(user_params)
+    user.save
+    respond_with user, location: api_v1_users_url(user)
   end
 
   private
