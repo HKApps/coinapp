@@ -13,8 +13,8 @@ Coinapp::Application.routes.draw do
 
       resources :schedules, only: [:index, :create, :destroy] do
         member do
-          post 'disable', to: 'schedules#disable'
-          post 'enable', to: 'schedules#enable'
+          put 'disable', to: 'schedules#disable'
+          put 'enable', to: 'schedules#enable'
         end
       end
     end

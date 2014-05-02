@@ -70,10 +70,10 @@ coinappServices.factory 'Schedule', ['$http', 'Session', ($http, Session) ->
     $http.delete "/api/v1/schedules/#{id}.json?api_key=#{Session.apiKey}"
 
   Schedule.disable = (id) ->
-    $http.post "/api/v1/schedules/#{id}/disable.json?api_key=#{Session.apiKey}"
+    $http.put "/api/v1/schedules/#{id}/disable.json?api_key=#{Session.apiKey}"
 
   Schedule.enable = (id) ->
-    $http.post "/api/v1/schedules/#{id}/enable.json?api_key=#{Session.apiKey}"
+    $http.put "/api/v1/schedules/#{id}/enable.json?api_key=#{Session.apiKey}"
 
   Schedule
 ]
