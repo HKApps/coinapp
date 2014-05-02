@@ -2,25 +2,23 @@
   ($scope, Schedule, Session) ->
     $scope.comparisons = ["above", "below"]
 
-    apiKey = Session.getCookie("api_key")
-
     $scope.createSchedule = (comparison, price) ->
       schedule = new Schedule()
       schedule.user_id = $scope.currentUser.id
       schedule.comparison = if comparison == "above" then ">" else "<"
       schedule.price = price
-      schedule.create(apiKey).then (res) =>
+      schedule.create().then (res) =>
         return unless res.status == 201
         $scope.new_schedule.$setPristine()
         $scope.resetForm()
         $scope.currentUser.schedules.push res.data
 
     $scope.enableSchedule = (schedule) ->
-      Schedule.enable(schedule.id, apiKey)
+      Schedule.enable(schedule.id)
       schedule.enabled = true
 
     $scope.disableSchedule = (schedule) ->
-      Schedule.disable(schedule.id, apiKey)
+      Schedule.disable(schedule.id)
       schedule.enabled = false
 
     $scope.resetForm = ->

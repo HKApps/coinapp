@@ -36,10 +36,12 @@ coinappServices.factory 'Session', ['$http', ($http) ->
   Session.deleteCookie = (c_name) ->
     Session.setCookie(c_name, "", -100)
 
+  Session.apiKey = Session.getCookie("api_key")
+
   Session
 ]
 
-coinappServices.factory 'User', ['$http', ($http) ->
+coinappServices.factory 'User', ['$http', 'Session', ($http, Session) ->
   User = (data) ->
     angular.extend(this, data)
 
@@ -47,31 +49,31 @@ coinappServices.factory 'User', ['$http', ($http) ->
     $http.post "/api/v1/users.json",
       user: this
 
-  User.current = (api_key) ->
-    $http.get "/api/v1/current_user.json?api_key=#{api_key}"
+  User.current = ->
+    $http.get "/api/v1/current_user.json?api_key=#{Session.apiKey}"
 
   User
 ]
 
-coinappServices.factory 'Schedule', ['$http', ($http) ->
+coinappServices.factory 'Schedule', ['$http', 'Session', ($http, Session) ->
   Schedule = (data) ->
     angular.extend(this, data)
 
-  Schedule.getIndex = (api_key) ->
-    $http.get "/api/v1/schedules.json?api_key=#{api_key}"
+  Schedule.getIndex = ->
+    $http.get "/api/v1/schedules.json?api_key=#{Session.apiKey}"
 
-  Schedule.prototype.create = (api_key) ->
-    $http.post "/api/v1/schedules.json?api_key=#{api_key}",
+  Schedule.prototype.create = ->
+    $http.post "/api/v1/schedules.json?api_key=#{Session.apiKey}",
       schedule: this
 
-  Schedule.destroy = (id, api_key) ->
-    $http.delete "/api/v1/schedules/#{id}.json?api_key=#{api_key}"
+  Schedule.destroy = (id) ->
+    $http.delete "/api/v1/schedules/#{id}.json?api_key=#{Session.apiKey}"
 
-  Schedule.disable = (id, api_key) ->
-    $http.post "/api/v1/schedules/#{id}/disable.json?api_key=#{api_key}"
+  Schedule.disable = (id) ->
+    $http.post "/api/v1/schedules/#{id}/disable.json?api_key=#{Session.apiKey}"
 
-  Schedule.enable = (id, api_key) ->
-    $http.post "/api/v1/schedules/#{id}/enable.json?api_key=#{api_key}"
+  Schedule.enable = (id) ->
+    $http.post "/api/v1/schedules/#{id}/enable.json?api_key=#{Session.apiKey}"
 
   Schedule
 ]
