@@ -13,9 +13,9 @@
     = render 'layouts/header'
 
     .main.container{ ng_show: "activateMain" }
-      .logged-out{ ng_if: "!currentUser.id" }
-        = render 'layouts/logged_out'
-      .logged-in{ ng_controller: "UserCtrl", ng_if: "currentUser.id" }
+      .logged-out{ ng_if: "!currentUser" }
+        = render 'layouts/login'
+      .logged-in{ ng_controller: "UserCtrl", ng_if: "currentUser" }
         = yield
 
     = render 'layouts/footer'

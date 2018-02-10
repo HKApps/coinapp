@@ -32,6 +32,7 @@ gem 'authlogic'
 # Jobs and Scheduler
 gem 'clockwork'
 gem 'sidekiq'
+gem 'sinatra'
 
 # External API libs
 gem 'coinbase'

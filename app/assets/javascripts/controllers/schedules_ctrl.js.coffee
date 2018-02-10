@@ -1,5 +1,5 @@
-@coinapp.controller 'SchedulesCtrl', ['$scope', 'Schedule',
-  ($scope, Schedule) ->
+@coinapp.controller 'SchedulesCtrl', ['$scope', 'Schedule', 'Session'
+  ($scope, Schedule, Session) ->
     $scope.comparisons = ["above", "below"]
 
     $scope.createSchedule = (comparison, price) ->

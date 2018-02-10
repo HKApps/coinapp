@@ -17,6 +17,16 @@ class Schedule < ActiveRecord::Base
     includes(:user).enabled.where(comparison: '<').where('? < price', current_price)
   end
 
+  def enabled!
+    self.enabled = true
+    self.save
+  end
+
+  def disabled!
+    self.enabled = false
+    self.save
+  end
+
   def destroy
     run_callbacks :destroy do
       self.deleted_at = Time.now

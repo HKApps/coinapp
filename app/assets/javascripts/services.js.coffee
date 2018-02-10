@@ -6,12 +6,12 @@ coinappServices.factory 'Session', ['$http', ($http) ->
 
   Session.destroy = ->
     $http.post "/logout.json"
-    Session.deleteCookie("user_id")
+    Session.deleteCookie("api_key")
 
   Session.prototype.create = ->
     $http.post("/login.json", user_session: this).then (res) =>
       return unless res.status == 201
-      Session.setCookie("user_id", res.data.id, 1)
+      Session.setCookie("api_key", res.data.single_access_token, 1)
       res
 
   Session.setCookie = (c_name, value, exdays) ->
@@ -23,7 +23,7 @@ coinappServices.factory 'Session', ['$http', ($http) ->
   Session.getCookie = (c_name) ->
     c_value = document.cookie
     c_start = c_value.indexOf(" " + c_name + "=")
-    c_start = c_value.indexOf(c_name + "=")  if c_start is -1
+    c_start = c_value.indexOf(c_name + "=") if c_start is -1
     if c_start is -1
       c_value = null
     else
@@ -36,42 +36,44 @@ coinappServices.factory 'Session', ['$http', ($http) ->
   Session.deleteCookie = (c_name) ->
     Session.setCookie(c_name, "", -100)
 
+  Session.apiKey = Session.getCookie("api_key")
+
   Session
 ]
 
-coinappServices.factory 'User', ['$http', ($http) ->
+coinappServices.factory 'User', ['$http', 'Session', ($http, Session) ->
   User = (data) ->
     angular.extend(this, data)
 
   User.prototype.create = ->
-    $http.post "/users.json",
+    $http.post "/api/v1/users.json",
       user: this
 
-  User.get = (id) ->
-    $http.get "/users/#{id}.json"
+  User.current = ->
+    $http.get "/api/v1/current_user.json?api_key=#{Session.apiKey}"
 
   User
 ]
 
-coinappServices.factory 'Schedule', ['$http', ($http) ->
+coinappServices.factory 'Schedule', ['$http', 'Session', ($http, Session) ->
   Schedule = (data) ->
     angular.extend(this, data)
 
   Schedule.getIndex = ->
-    $http.get "/schedules.json"
+    $http.get "/api/v1/schedules.json?api_key=#{Session.apiKey}"
 
   Schedule.prototype.create = ->
-    $http.post "/schedules.json",
+    $http.post "/api/v1/schedules.json?api_key=#{Session.apiKey}",
       schedule: this
 
   Schedule.destroy = (id) ->
-    $http.delete "/schedules/#{id}.json"
+    $http.delete "/api/v1/schedules/#{id}.json?api_key=#{Session.apiKey}"
 
   Schedule.disable = (id) ->
-    $http.post "/schedules/#{id}/disable.json"
+    $http.put "/api/v1/schedules/#{id}/disable.json?api_key=#{Session.apiKey}"
 
   Schedule.enable = (id) ->
-    $http.post "/schedules/#{id}/enable.json"
+    $http.put "/api/v1/schedules/#{id}/enable.json?api_key=#{Session.apiKey}"
 
   Schedule
 ]
